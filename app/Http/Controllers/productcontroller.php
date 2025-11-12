@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\product;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class productcontroller extends Controller
@@ -86,12 +87,13 @@ class productcontroller extends Controller
         
         $products = Product::query()
         ->when($search, function ($query, $search) {
-        return $query->where('name', 'like', "%{$search}%");
+        return $query->where('name', 'like', "%{$search}%")
+                     ->orWhere('cat', 'like', "%{$search}%");
         })
         ->orderBy('created_at', 'desc')
         
         ->get();
-        return view('products', compact('products', 'search'));
+        return view('home', compact('products', 'search'));
     }
 
     public function product_edit($product_id){

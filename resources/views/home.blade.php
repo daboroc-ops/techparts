@@ -8,12 +8,13 @@
   <div class="container">
     <h1 class="display-4 fw-bold">Welcome to TechPartsHub</h1>
     <p class="lead">Your trusted source for high-quality computer components and accessories.</p>
-    <form action="{{ route('product.view') }}" method="GET" class="d-flex justify-content-center mt-4" style="max-width: 500px; margin: auto;">
+    <form action="{{ route('product.search') }}" method="GET" class="d-flex justify-content-center mt-4" style="max-width: 500px; margin: auto;">
       <input 
       class="form-control me-2" 
       type="search" 
+      name="search"
       placeholder="Search products..."
-      value="{{ request('search') }}">
+      value="{{ request( $search ??'') }}">
       <button class="btn btn-primary" type="submit">Search</button>
     </form>
   </div>

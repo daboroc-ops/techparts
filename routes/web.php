@@ -8,6 +8,7 @@ Route::get('/', function () {
 });
 
 Route::get('/viewproduct', [productcontroller::class, 'index'])->name('product.view');
+Route::get('/producthome' ,[productcontroller::class, 'manage_product'])->name('product.search');
 Route::get('/productview' ,[productcontroller::class, 'product_manage'])->name('product.list');
 Route::get('/products/add',[productcontroller::class, 'product_create'])->name('product.create');
 Route::post('/product/add', [productcontroller::class, 'product_save'])->name('product.save');
