@@ -22,9 +22,17 @@ class productcontroller extends Controller
         return view('home', compact('products', 'search'));
     }
 
-    public function product_manage(){
-    $products = Product::all();
-    return view('products', compact('products'));
+    public function product_manage(Request $request){
+        $search = $request->input('search'); // get the search query
+        
+        $products = Product::query()
+        ->when($search, function ($query, $search) {
+        return $query->where('name', 'like', "%{$search}%");
+        })
+        ->orderBy('created_at', 'desc')
+        
+        ->get();
+        return view('products', compact('products', 'search'));
     }
 
     public function product_create(){
